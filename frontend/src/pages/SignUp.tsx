@@ -1,10 +1,10 @@
-import { SignInForm } from '../components/SignInForm'
 import { PublicLayout } from '../components/layouts/PublicLayout'
+import { SignUpForm } from '../components/SignUpForm'
 
-export function SignInPage() {
+export function SignUpPage() {
   return (
     <PublicLayout>
-      <SignInForm />
+      <SignUpForm />
     </PublicLayout>
   )
 }

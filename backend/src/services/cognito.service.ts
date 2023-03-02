@@ -1,15 +1,15 @@
 import { CognitoIdentityProvider } from '@aws-sdk/client-cognito-identity-provider'
 import crypto from 'crypto'
 
-import { awsCognitoConfig } from '../config/aws'
+import { config } from '../config/env'
 
 class CognitoService {
   private cognitoIdentity
   private config = {
-    region: awsCognitoConfig.region,
+    region: config.aws.cognito.region,
   }
-  private secretHash = awsCognitoConfig.secret
-  private clientId = awsCognitoConfig.client
+  private secretHash = config.aws.cognito.secret
+  private clientId = config.aws.cognito.client
 
   constructor() {
     this.cognitoIdentity = new CognitoIdentityProvider(this.config)

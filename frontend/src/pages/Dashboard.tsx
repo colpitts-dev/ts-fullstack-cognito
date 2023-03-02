@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import { appConfig } from "../config";
-import { useAuth } from "../hooks/useAuth";
-import PrivateRoute from "../components/PrivateRoute";
-
-import { Box, Button, Text, VStack } from "@chakra-ui/react";
+import { appConfig } from '../config'
+import { useAuth } from '../hooks/useAuth'
+import PrivateRoute from '../components/PrivateRoute'
+import { DashboardLayout } from '../components/layouts/DashboardLayout'
 
 export function DashboardPage() {
-  const [resultData, setResultData] = useState("");
-  const auth = useAuth();
+  const [resultData, setResultData] = useState('')
+  const auth = useAuth()
 
   const handleClick = async () => {
     try {
@@ -16,32 +15,35 @@ export function DashboardPage() {
         headers: {
           Authorization: `Bearer ${auth.jwtToken}`,
         },
-      });
-      const data = await res.json();
+      })
+      const data = await res.json()
 
-      setResultData(JSON.stringify(data));
+      setResultData(JSON.stringify(data))
     } catch (error) {
-      setResultData(JSON.stringify(error));
+      setResultData(JSON.stringify(error))
     }
-  };
+  }
 
   if (auth.isLoading) {
-    return <Box />;
+    return <div />
   }
 
   return (
     <PrivateRoute>
-      <VStack h={500} justify="center" spacing={8}>
-        <Text fontSize="5xl">Welcome {auth.username}!!</Text>
-        <Text fontSize="4xl">Login Succeed🎉</Text>
-        <Button colorScheme="teal" size="lg" onClick={handleClick}>
-          Fetch Message
-        </Button>
-        <pre>{resultData}</pre>
-        <Button colorScheme="teal" size="lg" onClick={() => auth.signOut()}>
-          Log out
-        </Button>
-      </VStack>
+      <DashboardLayout>
+        <section className="w-full text-center">
+          <h1 className="mb-8 text-5xl text-pink-600">
+            Welcome {auth.username}!! 🎉
+          </h1>
+          <button
+            className="py-3 mb-4 bg-green-600 px-7 text-bold"
+            onClick={handleClick}
+          >
+            Fetch Message
+          </button>
+          <pre>{resultData}</pre>
+        </section>
+      </DashboardLayout>
     </PrivateRoute>
-  );
+  )
 }

@@ -3,14 +3,14 @@ import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import jwkToPem from 'jwk-to-pem'
 
-import { awsCognitoConfig } from '../config/aws'
+import { config } from '../config/env'
 
 // In memory pem store
 const pems: { [key: string]: any } = {}
 
 class AuthMiddleware {
-  private region = awsCognitoConfig.region
-  private userPoolId = awsCognitoConfig.poolId
+  private region = config.aws.cognito.region
+  private userPoolId = config.aws.cognito.poolId
 
   constructor() {
     this.init()
